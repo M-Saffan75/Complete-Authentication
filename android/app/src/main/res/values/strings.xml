@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CompleteAuthentication</string>
+    
+    <string name="facebook_app_id">1814526708924439</string>
+    <string name="fb_login_protocol_scheme">fb1814526708924439</string>
+    <string name="facebook_client_token">336ed526787fbbc9d70931efa1d072ee</string>
+
+
+</resources>
