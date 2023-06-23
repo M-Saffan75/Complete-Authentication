@@ -95,3 +95,13 @@ export default App;
 // git commit -m "message"
 // git push
 
+// manually repository with code push
+// git init
+// git status
+// git add .
+// git commit -m "first commit"
+// create manually Repository on github and copy url
+// git remote add origin https://github.com/M-Saffan75/Complete-Authentication.git
+// git push -u origin main
+
+
