@@ -15,45 +15,47 @@ const ForgotPassword = ({ navigation, route }) => {
 
     const Send_Email = async () => {
 
-        if (email.length == '' && emailerror == false) {
+        if (email.length == '' || emailerror == false) {
             setEmailError(true)
         }
 
-        else if (email.length != '' && emailerror != true) {
+        // else if (email.length != '' && emailerror != true) {
 
-            setLoading(true);
-        }
+        //     setLoading(true);
+        // }
 
         else {
             setEmailError(false);
+            navigation.replace('OtpHere')
         }
+        
 
-        await axios({
-            method: 'post',
-            url: BASE_URL + '/send-password-reset-email',
+        // await axios({
+        //     method: 'post',
+        //     url: BASE_URL + '/send-password-reset-email',
 
-            data: {
-                email: email,
-            },
+        //     data: {
+        //         email: email,
+        //     },
 
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
-            .then(function (response) {
-                console.log(response.data)
-                if (response.data.code != 200) {
-                    setLoading(false)
-                }
-                if (response.status == 200) {
-                    setLoading(false)
-                    navigation.replace('OtpHere', { email: email })
-                }
-            })
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     }
+        // })
+        //     .then(function (response) {
+        //         console.log(response.data)
+        //         if (response.data.code != 200) {
+        //             setLoading(false)
+        //         }
+        //         if (response.status == 200) {
+        //             setLoading(false)
+        //             navigation.replace('OtpHere', { email: email })
+        //         }
+        //     })
 
-            .catch(function (error) {
-                console.log(error);
-            })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     })
     }
 
     return (

@@ -51,7 +51,7 @@ const Login = ({ navigation }) => {
 
   const LoginHere = async () => {
 
-    if (email.length == '' && emailerror == false && password.length == '' && pswderror == false) {
+    if (email.length == '' || password.length == '' || email.length == '' && emailerror == false) {
       setEmailError(true)
       setpswdError(true)
     }
@@ -59,38 +59,43 @@ const Login = ({ navigation }) => {
     else if (email.length == '' && emailerror == false) {
       setEmailError(true)
     }
-
-    else if (password.length == '' && pswderror == false) {
-      setpswdError(true)
-    }
-
+    
     else {
-      setEmailError(false);
-      setpswdError(false);
+      navigation.replace('Home');
     }
 
-    const data = {
-      email: email,
-      password: password,
-    }
+    // else if (password.length == '' && pswderror == false) {
+    //   setpswdError(true)
+    // }
 
-    axios.post(BASE_URL + '/loginhere',
-      data,
-    )
+    // else {
+    //   setEmailError(false);
+    //   setpswdError(false);
+    // }
 
-      .then(function (response) {
-        console.log(response.data)
-        if (response.data.code == 200 && response.data.token) {
-          setAuth(response.data.token);
-          navigation.replace('Home');
-        }
-        else {
-          console.log('credentials are wrong');
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
+
+    // const data = {
+    //   email: email,
+    //   password: password,
+    // }
+
+    // // axios.post(BASE_URL + '/loginhere',
+    // //   data,
+    // // )
+
+    // //   .then(function (response) {
+    // //     console.log(response.data)
+    // //     if (response.data.code == 200 && response.data.token) {
+    // //       setAuth(response.data.token);
+    // //       navigation.replace('Home');
+    // //     }
+    // //     else {
+    // //       console.log('credentials are wrong');
+    // //     }
+    // //   })
+    // //   .catch(function (error) {
+    // //     console.log(error);
+    // //   })
   }
 
 
@@ -187,9 +192,6 @@ const Login = ({ navigation }) => {
   }
 
   // API Facebook Start End 
-
-
-
 
   return (
     <>

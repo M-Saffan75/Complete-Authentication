@@ -16,65 +16,67 @@ const ResetPassword = ({ navigation, route }) => {
     const [loading, setLoading] = useState(false);
     const [password_confirmation, setPassword_Confirmation] = useState('');
 
-    const ResetPasswordHere =  () => {
+    const ResetPasswordHere = () => {
 
-        if (password.length == 0 &&  pswderror == false && password_confirmation.length == 0 && cnfrmpswderror == false ) {
+        if (password.length == 0 || pswderror == false || password_confirmation.length == 0 || cnfrmpswderror == false) {
             setPswdError(true)
             setCnfrmPswdError(true)
         }
 
-        else if (password.length == 0 && pswderror == false ) {
-            setPswdError(true)
-        }
+        // else if (password.length == 0 && pswderror == false ) {
+        //     setPswdError(true)
+        // }
 
-        else if (password_confirmation.length == 0 && cnfrmpswderror == false ) {
-            setCnfrmPswdError(true)
-        }
+        // else if (password_confirmation.length == 0 && cnfrmpswderror == false ) {
+        //     setCnfrmPswdError(true)
+        // }
 
-        else if (password.length != 0 && password_confirmation.length != 0 && pswderror == true && cnfrmpswderror == true) {
-            setLoading(true);
-        }
+        // else if (password.length != 0 && password_confirmation.length != 0 && pswderror == true && cnfrmpswderror == true) {
+        //     setLoading(true);
+        // }
 
         else {
             setPswdError(false);
             setCnfrmPswdError(false);
+            navigation.navigate('Login');
+
         }
 
 
-        let user_email = route.params.email;
-        let otp = route.params.otp;
+        // let user_email = route.params.email;
+        // let otp = route.params.otp;
 
-         axios({
-            method: 'post',
-            url: BASE_URL + '/reset-password',
+        //  axios({
+        //     method: 'post',
+        //     url: BASE_URL + '/reset-password',
 
-            data: {
-                otp: otp,
-                email: user_email,
-                password: password,
-                password_confirmation: password_confirmation,
-            },
+        //     data: {
+        //         otp: otp,
+        //         email: user_email,
+        //         password: password,
+        //         password_confirmation: password_confirmation,
+        //     },
 
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
-            .then(function (response) {
-                console.log(response.data)
-                if (response.data.status != 200) {
-                    setLoading(false);
-                }
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     }
+        // })
+        //     .then(function (response) {
+        //         console.log(response.data)
+        //         if (response.data.status != 200) {
+        //             setLoading(false);
+        //         }
 
-                if (response.status == 200) {
-                    console.log('password Successfully changed');
-                    setLoading(false);
-                    navigation.navigate('Login');
-                }
-            })
+        //         if (response.status == 200) {
+        //             console.log('password Successfully changed');
+        //             setLoading(false);
+        //             navigation.navigate('Login');
+        //         }
+        //     })
 
-            .catch(function (error) {
-                console.log(error);
-            })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     })
     }
 
     return (

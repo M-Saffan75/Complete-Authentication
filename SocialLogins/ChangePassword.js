@@ -20,20 +20,20 @@ const ChangePassword = ({ navigation }) => {
     const [password_confirmation, setConfirm_Password] = useState('');
 
 
-    useEffect(() => {
-        checkLogin()
-    }, [])
+    // useEffect(() => {
+    //     checkLogin()
+    // }, [])
 
-    const checkLogin = async () => {
+    // const checkLogin = async () => {
 
-        let t = await AsyncStorage.getItem("token");
+    //     let t = await AsyncStorage.getItem("token");
 
-        setToken(t);
+    //     setToken(t);
 
-        if (t == null) {
-            navigation.replace('Login');
-        }
-    }
+    //     if (t == null) {
+    //         navigation.replace('Login');
+    //     }
+    // }
 
     const password_change = async () => {
 
@@ -41,57 +41,58 @@ const ChangePassword = ({ navigation }) => {
         if (password.length == '' && pswderror == false || password_confirmation.length == '' && cnfrmpswderror == false) {
             setPswdError(true)
             setCnfrmPswdError(true)
-          }
-      
-          else if (password.length == '' && pswderror == false) {
-            setPswdError(true)
-          }
-          
-          else if (password_confirmation.length == '' && cnfrmpswderror == false) {
-            setCnfrmPswdError(true)
-          }
+        }
 
-          else if (password_confirmation != 0 && password.length != 0) {
-            setLoading(true)
-          }
-          
-          else  {
+        //   else if (password.length == '' && pswderror == false) {
+        //     setPswdError(true)
+        //   }
+
+        //   else if (password_confirmation.length == '' && cnfrmpswderror == false) {
+        //     setCnfrmPswdError(true)
+        //   }
+
+        //   else if (password_confirmation != 0 && password.length != 0) {
+        //     setLoading(true)
+        //   }
+
+        else {
             setLoading(false)
             setPswdError(false);
             setCnfrmPswdError(false);
+            navigation.replace('Home')
 
-          }
-        
-        let userToken = await AsyncStorage.getItem("token");
-
-        if (userToken != null) {
-
-            await axios({
-                method: 'post',
-                url: BASE_URL + '/changepassword',
-
-                data: {
-                    password: password,
-                    password_confirmation: password_confirmation,
-                },
-
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': `Bearer  ${userToken}`,
-                }
-            })
-                .then(function (response) {
-                    console.log(response.data)
-                    if (response.status == 200) {
-                        setLoading(false)
-                        navigation.replace('Login')
-                    }
-                })
-
-                .catch(function (error) {
-                    console.log(error);
-                })
         }
+
+        // let userToken = await AsyncStorage.getItem("token");
+
+        // if (userToken != null) {
+
+        //     await axios({
+        //         method: 'post',
+        //         url: BASE_URL + '/changepassword',
+
+        //         data: {
+        //             password: password,
+        //             password_confirmation: password_confirmation,
+        //         },
+
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             'Authorization': `Bearer  ${userToken}`,
+        //         }
+        //     })
+        //         .then(function (response) {
+        //             console.log(response.data)
+        //             if (response.status == 200) {
+        //                 setLoading(false)
+        //                 navigation.replace('Login')
+        //             }
+        //         })
+
+        //         .catch(function (error) {
+        //             console.log(error);
+        //         })
+        // }
     }
 
     return (

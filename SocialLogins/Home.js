@@ -24,48 +24,52 @@ const Home = ({ navigation }) => {
     const [loading, setLoading] = useState(true);
     const [new_imageset, setNewImage] = useState(false);
 
-    useEffect(() => {
-        checkLogin();
-        userdata();
-    }, [])
+    // useEffect(() => {
+    //     checkLogin();
+    //     userdata();
+    // }, [])
 
-    const checkLogin = async () => {
+    // const checkLogin = async () => {
 
-        let t = await AsyncStorage.getItem("token");
+    //     let t = await AsyncStorage.getItem("token");
 
-        setToken(t);
+    //     setToken(t);
 
-        if (t == null) {
-            navigation.replace('Login');
-        }
-    }
+    //     if (t == null) {
+    //         navigation.replace('Login');
+    //     }
+    // }
 
-    const removeToken = async () => {
-        await AsyncStorage.removeItem("token");
-    };
+    // const removeToken = async () => {
+    //     await AsyncStorage.removeItem("token");
+    // }; 
 
+    const shouldReplaceScreen = true; // Change this condition as needed
 
     const Logout = () => {
         // setLoading(true);
-        axios({
-            method: 'get',
-            url: BASE_URL + '/logout',
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ${token}`,
-            }
-        })
+        // navigation.replace("Login");
+        if (shouldReplaceScreen) {
+            navigation.replace('Login');
+          }
+        // axios({
+        //     method: 'get',
+        //     url: BASE_URL + '/logout',
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         'Authorization': `Bearer ${token}`,
+        //     }
+        // })
 
-            .then(function (response) {
-                console.log(response.data);
-                removeToken();
-                setLoading(false)
-                navigation.replace("Login");
-            })
+        //     .then(function (response) {
+        //         console.log(response.data);
+        //         removeToken();
+        //         // setLoading(false)
+        //     })
 
-            .catch(function (error) {
-                console.log(error);
-            });
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
     }
 
     // user data here 
@@ -136,35 +140,35 @@ const Home = ({ navigation }) => {
 
     const opengallery = async () => {
 
-        let userToken = await AsyncStorage.getItem("token");
+        // let userToken = await AsyncStorage.getItem("token");
 
         const images = await launchImageLibrary(options);
         setImage(images.assets[0].uri);
         console.log(images.assets[0]);
         setNewImage(true);
 
-        const formdata = new FormData()
-        formdata.append('image', {
-            uri: images.assets[0].uri,
-            type: images.assets[0].type,
-            name: images.assets[0].fileName
-        })
+        // const formdata = new FormData()
+        // formdata.append('image', {
+        //     uri: images.assets[0].uri,
+        //     type: images.assets[0].type,
+        //     name: images.assets[0].fileName
+        // })
 
-        await axios.post(BASE_URL + '/user/upload/image', formdata, {
+        // await axios.post(BASE_URL + '/user/upload/image', formdata, {
 
-            headers: {
-                "Accept": "application/json",
-                'Content-Type': 'multipart/form-data',
-                'Authorization': `Bearer  ${userToken}`,
-            },
-        })
-            .then(function (response) {
-                console.log(response.data);
-            })
+        //     headers: {
+        //         "Accept": "application/json",
+        //         'Content-Type': 'multipart/form-data',
+        //         'Authorization': `Bearer  ${userToken}`,
+        //     },
+        // })
+        //     .then(function (response) {
+        //         console.log(response.data);
+        //     })
 
-            .catch(function (error) {
-                console.log(error);
-            });
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
     }
 
     // Profile Preview Image End
@@ -172,55 +176,51 @@ const Home = ({ navigation }) => {
     return (
         <>
             <StatusBar backgroundColor={'#eee'} barStyle='dark-content' />
-            {
-                (loading == true) ?
-                    <AppLoader />
-                    :
-                    <ScrollView style={{ height: '100%', backgroundColor: COLOURS.white }}>
+            <ScrollView style={{ height: '100%', backgroundColor: COLOURS.white }}>
 
-                        <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: 30, }}>
+                <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: 30, }}>
 
-                            {image == null ?
-                                <View style={{ backgroundColor: COLOURS.apple, justifyContent: 'center', alignItems: 'center', width: 180, height: 180, elevation: 41, borderRadius: 100 }} resizeMode='cover' />
-                                :
-                                (new_imageset == true) ?
-                                    < Image source={{ uri: image }} style={{ justifyContent: 'center', alignItems: 'center', width: 180, height: 180, elevation: 41, borderRadius: 100 }} resizeMode='cover' />
-                                    :
-                                    < Image source={{ uri: ASSET_URL + image }} style={{ justifyContent: 'center', alignItems: 'center', width: 180, height: 180, elevation: 41, borderRadius: 100 }} resizeMode='cover' />
+                    {image == null ?
+                        <View style={{ backgroundColor: COLOURS.apple, justifyContent: 'center', alignItems: 'center', width: 180, height: 180, elevation: 41, borderRadius: 100 }} resizeMode='cover' />
+                        :
+                        (new_imageset == true) ?
+                            < Image source={{ uri: image }} style={{ justifyContent: 'center', alignItems: 'center', width: 180, height: 180, elevation: 41, borderRadius: 100 }} resizeMode='cover' />
+                            :
+                            < Image source={{ uri: ASSET_URL + image }} style={{ justifyContent: 'center', alignItems: 'center', width: 180, height: 180, elevation: 41, borderRadius: 100 }} resizeMode='cover' />
 
-                            }
+                    }
 
-                            <TouchableOpacity activeOpacity={0.6} onPress={opengallery}
-                                style={{ backgroundColor: COLOURS.peach, bottom: 30, left: 50, height: 30, width: 30, justifyContent: 'center', borderRadius: 100 }}>
-                                <AntDesign name='plus' style={{ color: COLOURS.coral, fontSize: 20, paddingHorizontal: 5, textAlign: 'center' }} />
-                            </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.6} onPress={opengallery}
+                        style={{ backgroundColor: COLOURS.peach, bottom: 30, left: 50, height: 30, width: 30, justifyContent: 'center', borderRadius: 100 }}>
+                        <AntDesign name='plus' style={{ color: COLOURS.coral, fontSize: 20, paddingHorizontal: 5, textAlign: 'center' }} />
+                    </TouchableOpacity>
 
-                        </View>
+                </View>
 
-                        <View style={{ marginVertical: 20, marginTop: 50, }}>
-                            <TextInput onChangeText={setName} defaultValue={name} style={styles.name} />
-                            <TextInput onChangeText={setEmail} defaultValue={email} style={styles.email} />
-                        </View>
+                <View style={{ marginVertical: 20, marginTop: 50, }}>
+                    <TextInput onChangeText={setName} defaultValue={name} style={styles.name} />
+                    <TextInput onChangeText={setEmail} defaultValue={email} style={styles.email} />
+                </View>
 
-                        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 20, }}>
+                <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 20, }}>
 
-                            <TouchableOpacity style={styles.changepassword} onPress={() => navigation.navigate('ChangePassword')}>
-                                <Text style={{ width: 25 }}></Text>
-                                <Text style={{ color: COLOURS.white, letterSpacing: .5, textAlign: 'center', fontWeight: 'bold' }}>Change Password</Text>
-                                <MaterialIcons name='keyboard-arrow-right' style={{ color: COLOURS.white, fontSize: 26, paddingHorizontal: 5, top: -2 }} />
-                            </TouchableOpacity>
+                    <TouchableOpacity style={styles.changepassword} onPress={() => navigation.navigate('ChangePassword')}>
+                        <Text style={{ width: 25 }}></Text>
+                        <Text style={{ color: COLOURS.white, letterSpacing: .5, textAlign: 'center', fontWeight: 'bold' }}>Change Password</Text>
+                        <MaterialIcons name='keyboard-arrow-right' style={{ color: COLOURS.white, fontSize: 26, paddingHorizontal: 5, top: -2 }} />
+                    </TouchableOpacity>
 
-                            <TouchableOpacity style={styles.btn} onPress={Logout}>
-                                <Text style={{ color: COLOURS.white, textAlign: 'center', letterSpacing: .5, fontWeight: 'bold' }}>Logout</Text>
-                            </TouchableOpacity>
+                    <TouchableOpacity style={styles.btn} onPress={Logout}>
+                        <Text style={{ color: COLOURS.white, textAlign: 'center', letterSpacing: .5, fontWeight: 'bold' }}>Logout</Text>
+                    </TouchableOpacity>
 
-                            <TouchableOpacity style={styles.btn} onPress={Update_profile}>
-                                <Text style={{ color: COLOURS.white, textAlign: 'center', letterSpacing: .5, fontWeight: 'bold' }}>Update Profile</Text>
-                            </TouchableOpacity>
+                    <TouchableOpacity style={styles.btn} onPress={Update_profile}>
+                        <Text style={{ color: COLOURS.white, textAlign: 'center', letterSpacing: .5, fontWeight: 'bold' }}>Update Profile</Text>
+                    </TouchableOpacity>
 
-                        </View>
-                    </ScrollView>
-            }
+                </View>
+            </ScrollView>
+
         </>
     )
 }

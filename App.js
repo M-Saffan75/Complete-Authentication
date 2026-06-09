@@ -62,10 +62,10 @@ const App = () => {
           },
         }}
           animation='slide'
-          initialRouteName='Home'>
+          initialRouteName='Login'>
 
-          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="OtpHere" component={OtpHere} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="AppLoader" component={AppLoader} />
@@ -82,12 +82,17 @@ const App = () => {
 
 export default App;
 
-// git init
+
+// simple push on git
+
 // git status
+// git init
 // git add .
+// git status
 // git commit -m "first commit"
 // 1st time you have to manually publish
 // git push
+
 
 // after editing
 
@@ -96,6 +101,8 @@ export default App;
 // git push
 
 // manually repository with code push
+
+
 // git init
 // git status
 // git add .

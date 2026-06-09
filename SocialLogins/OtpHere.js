@@ -16,54 +16,55 @@ const OtpHere = ({ navigation, route }) => {
 
     const Send_Email = async () => {
 
-        if (otpcode.length == 0 && otperror == false) {
+        if (otpcode.length == 0 || otperror == false) {
             setOtperror(true)
         }
 
-        else if (otpcode.length != 0 && otperror != false) {
+        // else if (otpcode.length != 0 && otperror != false) {
 
-            setLoading(true);
-        }
+        //     setLoading(true);
+        // }
 
         else {
             setOtperror(false);
+            navigation.navigate('ResetPassword')
         }
 
-        let user_email = route.params.email;
+        // let user_email = route.params.email;
 
 
-        await axios({
-            method: 'post',
-            url: BASE_URL + '/user/otp',
+        // await axios({
+        //     method: 'post',
+        //     url: BASE_URL + '/user/otp',
 
-            data: {
-                otp: otpcode,
-                email: user_email,
-            },
+        //     data: {
+        //         otp: otpcode,
+        //         email: user_email,
+        //     },
 
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
-            .then(function (response) {
-                console.log(response.data)
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     }
+        // })
+        //     .then(function (response) {
+        //         console.log(response.data)
 
-                let code = response.data.code
-                setLoading(false);
-                if (code != 200) {
-                    setLoading(false);
-                    setOtpvalid(response.data)
-                }
+        //         let code = response.data.code
+        //         setLoading(false);
+        //         if (code != 200) {
+        //             setLoading(false);
+        //             setOtpvalid(response.data)
+        //         }
 
-                if (code == 200) {
-                    setLoading(false);
-                    navigation.navigate('ResetPassword', { email: user_email, otp: otpcode })
-                }
-            })
+        //         if (code == 200) {
+        //             setLoading(false);
+        //             navigation.navigate('ResetPassword', { email: user_email, otp: otpcode })
+        //         }
+        //     })
 
-            .catch(function (error) {
-                console.log(error);
-            })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     })
     }
 
     return (
